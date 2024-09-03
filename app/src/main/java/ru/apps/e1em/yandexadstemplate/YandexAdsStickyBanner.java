@@ -19,18 +19,16 @@ import com.yandex.mobile.ads.common.ImpressionData;
 import ru.apps.e1em.yandexadstemplate.databinding.ActivityMainBinding;
 
 public class YandexAdsStickyBanner {
+
+    private final String AD_UNIT_ID  = "demo-banner-yandex";
     private ActivityMainBinding mBinding;
     private Context mContext;
     private Activity mActivity;
-
-    // Yandex Ads.
-    @Nullable
     private BannerAdView mBannerAd = null;
-    private final String AD_UNIT_ID  = "demo-banner-yandex";
 
-    public YandexAdsStickyBanner(ActivityMainBinding mainActivity, Context context)
+    public YandexAdsStickyBanner(ActivityMainBinding activityMainBinding, Context context)
     {
-        mBinding = mainActivity;
+        mBinding = activityMainBinding;
         mContext = context;
         mActivity = (Activity)mContext;
     }

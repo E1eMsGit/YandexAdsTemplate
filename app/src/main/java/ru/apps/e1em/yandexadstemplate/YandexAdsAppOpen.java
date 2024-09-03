@@ -18,24 +18,25 @@ import com.yandex.mobile.ads.common.AdRequestError;
 import com.yandex.mobile.ads.common.ImpressionData;
 
 public class YandexAdsAppOpen {
+
+    private final String AD_UNIT_ID = "demo-banner-yandex";
     private Context mContext;
     private Activity mActivity;
-    // Yandex Ads.
-    @Nullable
     private AppOpenAd mAppOpenAd;
-    private final String AD_UNIT_ID  = "demo-banner-yandex";
-    private boolean isAdShowOnColdStart = false;
+    private boolean mIsAdShowOnColdStart = false;
 
     public YandexAdsAppOpen(Context context) {
         mContext = context;
-        mActivity = (Activity)mContext;
+        mActivity = (Activity) mContext;
     }
 
     public void init() {
         loadAppOpenAd();
         final DefaultProcessLifecycleObserver processLifecycleObserver = new DefaultProcessLifecycleObserver() {
             @Override
-            public void onProcessCameForeground() { showAppOpenAd(); }
+            public void onProcessCameForeground() {
+                showAppOpenAd();
+            }
         };
         ProcessLifecycleOwner.get().getLifecycle().addObserver(processLifecycleObserver);
     }
@@ -47,18 +48,18 @@ public class YandexAdsAppOpen {
             public void onAdLoaded(@NonNull final AppOpenAd appOpenAd) {
                 // The ad was loaded successfully. Now you can show loaded ad.
                 mAppOpenAd = appOpenAd;
-                if(!isAdShowOnColdStart) {
+                if (!mIsAdShowOnColdStart) {
                     showAppOpenAd();
-                    isAdShowOnColdStart = true;
+                    mIsAdShowOnColdStart = true;
                 }
-                Log.i("Yandex Ads",">>> Yandex Ads AppOpen onAdLoaded");
+                Log.i("Yandex Ads", ">>> Yandex Ads AppOpen onAdLoaded");
             }
 
             @Override
             public void onAdFailedToLoad(@NonNull final AdRequestError adRequestError) {
                 // Ad failed to load with AdRequestError.
                 // Attempting to load a new ad from the onAdFailedToLoad() method is strongly discouraged.
-                Log.i("Yandex Ads",">>> Yandex Ads AppOpen onAdFailedToLoad");
+                Log.i("Yandex Ads", ">>> Yandex Ads AppOpen onAdFailedToLoad");
             }
         };
         appOpenAdLoader.setAdLoadListener(appOpenAdLoadListener);
@@ -72,7 +73,7 @@ public class YandexAdsAppOpen {
             @Override
             public void onAdShown() {
                 // Called when ad is shown.
-                Log.i("Yandex Ads",">>> Yandex Ads AppOpen onAdShown");
+                Log.i("Yandex Ads", ">>> Yandex Ads AppOpen onAdShown");
             }
 
             @Override
@@ -80,7 +81,7 @@ public class YandexAdsAppOpen {
                 // Called when ad failed to show.
                 clearAppOpenAd();
                 loadAppOpenAd();
-                Log.i("Yandex Ads",">>> Yandex Ads AppOpen onAdFailedToShow");
+                Log.i("Yandex Ads", ">>> Yandex Ads AppOpen onAdFailedToShow");
             }
 
             @Override
@@ -89,19 +90,19 @@ public class YandexAdsAppOpen {
                 // Clean resources after dismiss and preload new ad.
                 clearAppOpenAd();
                 loadAppOpenAd();
-                Log.i("Yandex Ads",">>> Yandex Ads AppOpen onAdDismissed");
+                Log.i("Yandex Ads", ">>> Yandex Ads AppOpen onAdDismissed");
             }
 
             @Override
             public void onAdClicked() {
                 // Called when a click is recorded for an ad.
-                Log.i("Yandex Ads",">>> Yandex Ads AppOpen onAdClicked");
+                Log.i("Yandex Ads", ">>> Yandex Ads AppOpen onAdClicked");
             }
 
             @Override
             public void onAdImpression(@Nullable final ImpressionData impressionData) {
                 // Called when an impression is recorded for an ad.
-                Log.i("Yandex Ads",">>> Yandex Ads AppOpen onAdImpression" + impressionData);
+                Log.i("Yandex Ads", ">>> Yandex Ads AppOpen onAdImpression" + impressionData);
             }
         };
 

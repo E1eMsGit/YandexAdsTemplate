@@ -11,22 +11,20 @@ import com.yandex.mobile.ads.common.MobileAds;
 import ru.apps.e1em.yandexadstemplate.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(mBinding.getRoot());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        new YandexAdsStickyBanner(mBinding, this).init();
-        YandexAdsAppOpen yandexAdsAppOpen = new YandexAdsAppOpen(this);
+        new YandexAdsStickyBanner(binding, this).init();
+        // YandexAdsAppOpen yandexAdsAppOpen = new YandexAdsAppOpen(this);
 
         MobileAds.setAgeRestrictedUser(false);
         MobileAds.initialize(this, () -> {
             Log.i("Yandex Ads",">>> Yandex Ads initialized");
-            yandexAdsAppOpen.init();
+            // yandexAdsAppOpen.init();
         });
     }
 }
